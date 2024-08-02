@@ -36,15 +36,41 @@ const App = () => {
     setTodos([...todos, newTodo]);
   };
 
+  const removeTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const updateTodo = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
+  const computedItemsLeft = todos.filter((todo) => !todo.completed).length;
+
+  const clearCompletes = () => {
+    setTodos(todos.filter((todo) => !todo.completed));
+  };
+
   return (
     <div className="bg-[url('./assets/images/bg-desktop-light.jpg')] bg-no-repeat bg-contain min-h-screen bg-gray-200">
       <Header />
       <main className="container mx-auto px-4 mt-8">
         <TodoCreate createTodo={createTodo} />
 
-        <TodoList todos={todos} />
+        <TodoList
+          todos={todos}
+          removeTodo={removeTodo}
+          updateTodo={updateTodo}
+        />
 
-        <TodoComputed />
+        <TodoComputed
+          todos={todos}
+          computedItemsLeft={computedItemsLeft}
+          clearCompletes={clearCompletes}
+        />
 
         <TodoFilter />
       </main>
