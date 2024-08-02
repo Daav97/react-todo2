@@ -1,52 +1,57 @@
-import CrossIcon from "./components/icons/CrossIcon.jsx";
-import MoonIcon from "./components/icons/MoonIcon.jsx";
+import { useState } from "react";
+import Header from "./components/Header.jsx";
+import TodoComputed from "./components/TodoComputed.jsx";
+import TodoCreate from "./components/TodoCreate.jsx";
+import TodoFilter from "./components/TodoFilter.jsx";
+import TodoList from "./components/TodoList.jsx";
+
+const initialStateTodo = [
+  {
+    id: 1,
+    title: "Titulo 1",
+    completed: false,
+  },
+  {
+    id: 2,
+    title: "Titulo 2",
+    completed: false,
+  },
+  {
+    id: 3,
+    title: "Titulo 3",
+    completed: false,
+  },
+];
 
 const App = () => {
+  const [todos, setTodos] = useState(initialStateTodo);
+
+  const createTodo = (title) => {
+    const newTodo = {
+      id: Date.now(),
+      title,
+      completed: false,
+    };
+
+    setTodos([...todos, newTodo]);
+  };
+
   return (
     <div className="bg-[url('./assets/images/bg-desktop-light.jpg')] bg-no-repeat bg-contain min-h-screen bg-gray-200">
-      <header className="container mx-auto px-4 pt-5">
-        <div className="flex justify-between">
-          <h1 className="uppercase text-white text-3xl font-bold tracking-[0.3em]">
-            Todo
-          </h1>
-          <button>
-            <MoonIcon />
-          </button>
-        </div>
-        <form className="bg-white rounded-md overflow-hidden py-2 flex gap-4 items-center px-4 mt-8">
-          <span className="rounded-full border-2 w-5 h-5 inline-block"></span>
-          <input
-            type="text"
-            placeholder="Create a new todo..."
-            className="w-full text-gray-400 outline-none"
-          />
-        </form>
-      </header>
+      <Header />
       <main className="container mx-auto px-4 mt-8">
-        <div className="bg-white rounded-md [&>article]:p-4">
-          <article className="flex gap-4 border-b-gray-400 border-b">
-            <button className="rounded-full border-2 w-5 h-5 inline-block flex-none"></button>
-            <p className="text-gray-600 grow">Texto....</p>
-            <button className="flex-none">
-              <CrossIcon />
-            </button>
-          </article>
-          <section className="py-4 px-4 flex justify-between">
-            <span className="text-gray-400">5 items left</span>
-            <button className="text-gray-400">Clear completed</button>
-          </section>
-        </div>
+        <TodoCreate createTodo={createTodo} />
+
+        <TodoList todos={todos} />
+
+        <TodoComputed />
+
+        <TodoFilter />
       </main>
 
-      <section className="px-4 container mx-auto mt-8">
-        <div className="bg-white flex justify-center rounded-md p-4 gap-4">
-          <button className="text-blue-600">All</button>
-          <button className="hover:text-blue-600">Active</button>
-          <button className="hover:text-blue-600">Completed</button>
-        </div>
-      </section>
-
-      <p className="text-center mt-8">Drag and drop to reorder list</p>
+      <footer className="text-center mt-8">
+        Drag and drop to reorder list
+      </footer>
     </div>
   );
 };
