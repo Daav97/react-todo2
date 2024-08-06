@@ -9,12 +9,12 @@ const initialStateTodo = [
   {
     id: 1,
     title: "Titulo 1",
-    completed: false,
+    completed: true,
   },
   {
     id: 2,
     title: "Titulo 2",
-    completed: false,
+    completed: true,
   },
   {
     id: 3,
@@ -25,6 +25,22 @@ const initialStateTodo = [
 
 const App = () => {
   const [todos, setTodos] = useState(initialStateTodo);
+  const [filter, setFilter] = useState("all");
+
+  const filteredTodos = () => {
+    switch (filter) {
+      case "all":
+        return todos;
+      case "active":
+        return todos.filter((todo) => !todo.completed);
+      case "completed":
+        return todos.filter((todo) => todo.completed);
+    }
+  };
+
+  const changeFilter = (newFilter) => {
+    setFilter(newFilter);
+  };
 
   const createTodo = (title) => {
     const newTodo = {
@@ -50,7 +66,7 @@ const App = () => {
 
   const computedItemsLeft = todos.filter((todo) => !todo.completed).length;
 
-  const clearCompletes = () => {
+  const clearCompleted = () => {
     setTodos(todos.filter((todo) => !todo.completed));
   };
 
@@ -61,7 +77,7 @@ const App = () => {
         <TodoCreate createTodo={createTodo} />
 
         <TodoList
-          todos={todos}
+          todos={filteredTodos(todos)}
           removeTodo={removeTodo}
           updateTodo={updateTodo}
         />
@@ -69,10 +85,10 @@ const App = () => {
         <TodoComputed
           todos={todos}
           computedItemsLeft={computedItemsLeft}
-          clearCompletes={clearCompletes}
+          clearCompleted={clearCompleted}
         />
 
-        <TodoFilter />
+        <TodoFilter changeFilter={changeFilter} filter={filter} />
       </main>
 
       <footer className="text-center mt-8">
