@@ -5,4 +5,5 @@ export default {
     extend: {},
   },
   plugins: [],
+  darkMode: "class", //Activando esta deja de detectar la preferencia del SO automaticamente.
 };
