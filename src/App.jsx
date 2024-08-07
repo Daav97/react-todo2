@@ -1,31 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header.jsx";
 import TodoComputed from "./components/TodoComputed.jsx";
 import TodoCreate from "./components/TodoCreate.jsx";
 import TodoFilter from "./components/TodoFilter.jsx";
 import TodoList from "./components/TodoList.jsx";
 
-const initialStateTodo = [
-  {
-    id: 1,
-    title: "Titulo 1",
-    completed: true,
-  },
-  {
-    id: 2,
-    title: "Titulo 2",
-    completed: true,
-  },
-  {
-    id: 3,
-    title: "Titulo 3",
-    completed: false,
-  },
-];
+const initialStateTodo = JSON.parse(localStorage.getItem("todos")) || [];
 
 const App = () => {
   const [todos, setTodos] = useState(initialStateTodo);
   const [filter, setFilter] = useState("all");
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const filteredTodos = () => {
     switch (filter) {
