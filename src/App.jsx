@@ -1,3 +1,4 @@
+import { DragDropContext } from "@hello-pangea/dnd";
 import { useEffect, useState } from "react";
 import Header from "./components/Header.jsx";
 import TodoComputed from "./components/TodoComputed.jsx";
@@ -77,11 +78,13 @@ const App = () => {
       <main className="container mx-auto px-4 mt-8 md:max-w-xl">
         <TodoCreate createTodo={createTodo} />
 
-        <TodoList
-          todos={filteredTodos(todos)}
-          removeTodo={removeTodo}
-          updateTodo={updateTodo}
-        />
+        <DragDropContext>
+          <TodoList
+            todos={filteredTodos(todos)}
+            removeTodo={removeTodo}
+            updateTodo={updateTodo}
+          />
+        </DragDropContext>
 
         <TodoComputed
           todos={todos}
