@@ -1,7 +1,7 @@
 const TodoComputed = ({ todos, computedItemsLeft, clearCompleted }) => {
   return (
     <section
-      className={`py-4 px-4 flex justify-between bg-white  ${
+      className={`py-4 px-4 flex justify-between bg-white dark:bg-gray-700 ${
         todos.length > 0 ? "rounded-b-md" : "rounded-md"
       }`}
     >

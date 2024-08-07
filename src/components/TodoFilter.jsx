@@ -1,10 +1,11 @@
 const TodoFilter = ({ changeFilter, filter }) => {
-  const activeFilterStyle = "text-blue-600";
-  const inactiveFilterStyle = "hover:text-blue-600";
+  const activeFilterStyle = "text-blue-600 dark:text-violet-400";
+  const inactiveFilterStyle =
+    "hover:text-blue-600 text-gray-400 dark:hover:text-violet-400";
 
   return (
-    <section className="container mx-auto mt-8">
-      <div className="bg-white flex justify-center rounded-md p-4 gap-4">
+    <section className="container mx-auto mt-8 ">
+      <div className="bg-white flex justify-center rounded-md p-4 gap-4 dark:bg-gray-700">
         <button
           onClick={() => changeFilter("all")}
           className={`${
