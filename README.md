@@ -18,3 +18,7 @@ Tecnologías usadas:
 - Javascript
 - React
 - Librería: hello-pangea/dnd
+
+## Referencias:
+
+Curso React Bluweb
